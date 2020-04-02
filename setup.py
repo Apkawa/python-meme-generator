@@ -56,6 +56,7 @@ setup(
         "pycairo",
         "PyGObject",
         "webcolors",
+        "pillow",
         "click",
     ],
     zip_safe=False,
