@@ -1,5 +1,7 @@
 from io import BytesIO
 
+from PIL import ImageDraw, Image
+
 from meme_generator.common import Rect, Font, Color
 from meme_generator.render import Render
 
@@ -41,7 +43,6 @@ def test_draw_multiple_texts(image_regression):
     r = Render(300, 200)
     r.fill_bg()
 
-
     r.draw_text(
         'top-right',
         bound=Rect(230, 0), font=Font(size=10))
@@ -57,8 +58,7 @@ def test_draw_multiple_texts(image_regression):
     image_regression(fp)
 
 
-
-def test_draw_line(image_regression):
+def _test_draw_line(image_regression):
     r = Render(300, 200)
     r.fill_bg()
     r.draw_line(Rect(0, 0, 300, 200))
@@ -70,10 +70,20 @@ def test_draw_line(image_regression):
     image_regression(fp)
 
 
+def make_test_image(text="Hello world", size=(100, 30)):
+    img = Image.new('RGB', size, color=(73, 109, 137))
+
+    d = ImageDraw.Draw(img)
+    d.text((10, 10), text, fill=(255, 255, 0))
+
+    return img
+
+
 def test_draw_image(image_regression):
-    r = Render(300, 1000)
+    r = Render(300, 100)
     r.fill_bg()
-    r.draw_image("/home/apkawa/code/python-meme-generator/meme_generator/memes/supermind/img/0.jpg")
+
+    r.draw_image(make_test_image("Nya"))
 
     fp = BytesIO()
     r.save(fp)

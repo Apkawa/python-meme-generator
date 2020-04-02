@@ -1,13 +1,14 @@
 import pytest
 
-from meme_generator.common import Font, Rect, Align
+from meme_generator.common import Font, Rect
+from meme_generator.constants import Align
 from meme_generator.helpers import get_text_bound, calculate_align
 
 
 def test_get_text_bound(image_regression):
     bound = get_text_bound("top-left", font=Font(size=10))
-    assert bound.width == 48
-    assert bound.height == 17
+    assert bound.w == 48
+    assert bound.h == 17
 
 
 @pytest.mark.parametrize('kw,expect', [

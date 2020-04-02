@@ -22,6 +22,14 @@ docs = ["sphinx", "zope.interface"]
 tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
 
 [[package]]
+category = "main"
+description = "Composable command line interface toolkit"
+name = "click"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "7.1.1"
+
+[[package]]
 category = "dev"
 description = "Cross-platform colored terminal text."
 marker = "python_version >= \"3.5\" and sys_platform == \"win32\" or sys_platform == \"win32\""
@@ -232,7 +240,7 @@ imgdiff = "*"
 pytest = "*"
 
 [package.source]
-reference = "37f76a889e2d93576999a3931c306932a5910b90"
+reference = "611f62c05794f7d7c49a5c4f18f00be4215c4d78"
 type = "git"
 url = "https://github.com/Apkawa/pytest-image-diff"
 
@@ -315,7 +323,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "8b7086a61b7783c8c6ff506f54177bca5bf3670e3191de962c4b5e24373f601d"
+content-hash = "61fa72dc3e129e5415226c4713d152e9f9f8744a7587be757b46a99d81a3b2c5"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -326,6 +334,10 @@ atomicwrites = [
 attrs = [
     {file = "attrs-19.3.0-py2.py3-none-any.whl", hash = "sha256:08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c"},
     {file = "attrs-19.3.0.tar.gz", hash = "sha256:f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"},
+]
+click = [
+    {file = "click-7.1.1-py2.py3-none-any.whl", hash = "sha256:e345d143d80bf5ee7534056164e5e112ea5e22716bbb1ce727941f4c8b471b9a"},
+    {file = "click-7.1.1.tar.gz", hash = "sha256:8a18b4ea89d8820c5d0c7da8a64b2c324b4dabb695804dbfea19b9be9d88c0cc"},
 ]
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},

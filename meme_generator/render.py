@@ -9,6 +9,7 @@ from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
 
 from meme_generator.common import Color, Rect, Font
+from meme_generator.constants import TextAlignment
 
 
 class Render:
@@ -25,7 +26,8 @@ class Render:
 
     def draw_text(self, text: str, bound: Rect = Rect(0, 0),
                   color: Color = Color.from_str("#000"),
-                  font: Font = Font("Sans", 25)):
+                  font: Font = Font("Sans", 25),
+                  alignment: TextAlignment = TextAlignment.LEFT):
         context = self.ctx
         context.move_to(bound.x, bound.y)
         layout = pangocairo.create_layout(context)
@@ -43,6 +45,9 @@ class Render:
         if bound.h:
             layout.set_height(bound.w)
 
+        if alignment:
+            layout.set_alignment(alignment.value)
+
         layout.set_text(text)
         context.set_source_rgb(*color.rgb)
         pangocairo.update_layout(context, layout)
@@ -54,6 +59,9 @@ class Render:
         else:
             im = Image.open(image)
         buffer = BytesIO()
+        if rect.h or rect.w:
+            _w, _h = im.size
+            im.thumbnail([rect.w or _w, rect.h or _h], Image.ANTIALIAS)
         im.save(buffer, format="PNG")
         buffer.seek(0)
 

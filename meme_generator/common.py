@@ -1,9 +1,16 @@
 from dataclasses import dataclass
-from enum import Enum, auto, Flag
 
 from webcolors import hex_to_rgb
 
 from gi.repository import Pango as pango
+
+from meme_generator.constants import TextStyle
+
+
+@dataclass
+class Size:
+    w: int
+    h: int
 
 
 @dataclass
@@ -40,38 +47,19 @@ class Color:
         return self.rgba[:3]
 
 
-
 @dataclass
 class Font:
     name: str = "Sans"
     size: int = 12
 
-    class Style:
-        NORMAL = pango.Style.NORMAL
-        ITALIC = pango.Style.ITALIC
-        OBLIQUE = pango.Style.OBLIQUE
 
-    style: Style = Style.NORMAL
+    style: TextStyle = TextStyle.NORMAL
 
     @property
     def font_desc(self):
         # https://lazka.github.io/pgi-docs/Pango-1.0/classes/FontDescription.html#Pango.FontDescription
         font = pango.FontDescription.from_string(f'{self.name} {self.size}')
-        font.set_style(self.style)
+        font.set_style(self.style.value)
         return font
 
 
-class Align(Flag):
-    LEFT = auto()
-    RIGHT = auto()
-    TOP = auto()
-    CENTER = auto()
-    BOTTOM = auto()
-
-    VERTICAL = TOP | BOTTOM
-    HORIZONTAL = LEFT | RIGHT
-
-    # def __init__(self, *args):
-    #     cls = self.__class__
-    #     if self.value in [cls.VERTICAL, cls.HORIZONTAL]:
-    #         raise ValueError("Invalid combination")
