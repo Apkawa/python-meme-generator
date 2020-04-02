@@ -1,0 +1,4 @@
+recursive-include meme_generator/ *.jpg *.jpeg *.png *.gif
+recursive-include meme_generator/fonts/ *.ttf
+include README.md
+include LICENSE

@@ -1,0 +1,7 @@
+-e .
+
+pytest==5.4.1
+pytest-mypy==0.6.0
+pytest-cov
+git+https://github.com/Apkawa/pytest-image-diff#egg=pytest-image-diff
+tox==3.14.6

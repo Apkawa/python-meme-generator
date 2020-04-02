@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 from io import BytesIO
 from typing import Union, BinaryIO
@@ -11,6 +12,21 @@ from gi.repository import PangoCairo as pangocairo
 from meme_generator.common import Color, Rect, Font
 from meme_generator.constants import TextAlignment
 
+from . import fontconfig as fc
+
+FONTS_ROOT = os.path.join(os.path.dirname(__file__), 'fonts')
+
+
+def load_fonts():
+    conf = fc.Config.get_current()
+    for name in os.listdir(FONTS_ROOT):
+        path = os.path.join(FONTS_ROOT, name)
+        if not os.path.isfile(path):
+            continue
+
+        conf.app_font_add_file(path)
+
+load_fonts()
 
 class Render:
     def __init__(self, width: int, height: int):
@@ -84,4 +100,3 @@ class Render:
         self.save(fp)
         fp.seek(0)
         return fp
-
