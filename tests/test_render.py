@@ -3,6 +3,8 @@ from io import BytesIO
 from PIL import ImageDraw, Image
 
 from meme_generator.common import Rect, Font, Color
+from meme_generator.constants import Align
+from meme_generator.helpers import get_text_bound, calculate_align
 from meme_generator.render import Render
 
 
@@ -40,22 +42,34 @@ def test_draw_long_text_wrap(image_regression):
 
 
 def test_draw_multiple_texts(image_regression):
-    r = Render(300, 200)
+    r = Render(800, 400)
     r.fill_bg()
+    r.draw_line(Rect(400, 0, 400, 400), line_width=3)
 
-    r.draw_text(
-        'top-right',
-        bound=Rect(230, 0), font=Font(size=10))
+    text_container = Rect(400, 0, 400, 400)
 
-    r.draw_text(
-        'top-left',
-        bound=Rect(0, 0), font=Font(size=10))
+    test_aligns = [
+        Align.TOP | Align.LEFT,
+        Align.TOP | Align.CENTER,
+        Align.TOP | Align.RIGHT,
+        Align.CENTER | Align.LEFT,
+        Align.CENTER,
+        Align.CENTER | Align.RIGHT,
+        Align.BOTTOM | Align.LEFT,
+        Align.BOTTOM | Align.CENTER,
+        Align.BOTTOM | Align.RIGHT,
+    ]
+    font = Font(size=10)
+    for align in test_aligns:
+        text = str(align)
+        text_bound = get_text_bound(text, font=font)
+        align_text_bound = calculate_align(text_container, text_bound, align=align)
 
-    fp = BytesIO()
-    r.save(fp)
-    fp.seek(0)
+        r.draw_text(
+            text,
+            bound=align_text_bound, font=Font(size=10))
 
-    image_regression(fp)
+    image_regression(r.save_to_stream())
 
 
 def _test_draw_line(image_regression):

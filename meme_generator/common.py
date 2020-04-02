@@ -14,6 +14,12 @@ class Size:
 
 
 @dataclass
+class Point:
+    x: int
+    y: int
+
+
+@dataclass
 class Rect:
     x: int = 0
     y: int = 0
@@ -52,7 +58,6 @@ class Font:
     name: str = "Sans"
     size: int = 12
 
-
     style: TextStyle = TextStyle.NORMAL
 
     @property
@@ -61,5 +66,3 @@ class Font:
         font = pango.FontDescription.from_string(f'{self.name} {self.size}')
         font.set_style(self.style.value)
         return font
-
-

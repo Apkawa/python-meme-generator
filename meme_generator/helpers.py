@@ -27,15 +27,15 @@ def calculate_align(rect: Rect, box: Rect, align: Align) -> Rect:
         new_rect.x = (rect.w / 2) - (new_rect.w / 2)
         new_rect.y = (rect.h / 2) - (new_rect.h / 2)
     if Align.LEFT & align:
-        new_rect.x = rect.x
+        new_rect.x = 0
     if Align.RIGHT & align:
-        new_rect.x = (rect.x + rect.w) - new_rect.w
+        new_rect.x = rect.w - new_rect.w
 
     if Align.TOP & align:
-        new_rect.y = rect.y
+        new_rect.y = 0
 
     if Align.BOTTOM & align:
-        new_rect.y = (rect.y + rect.h) - new_rect.h
+        new_rect.y = rect.h - new_rect.h
 
     new_rect.x += rect.x
     new_rect.y += rect.y
