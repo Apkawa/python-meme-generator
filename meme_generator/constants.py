@@ -9,7 +9,7 @@ class TextAlignment(Enum):
     RIGHT = pango.Alignment.RIGHT
 
 
-class TextStyle(Enum):
+class TextStyle(Flag):
     NORMAL = pango.Style.NORMAL
     ITALIC = pango.Style.ITALIC
     OBLIQUE = pango.Style.OBLIQUE
@@ -21,7 +21,6 @@ class Align(Flag):
     TOP = auto()
     CENTER = auto()
     BOTTOM = auto()
-
 
     # def __init__(self, *args):
     #     cls = self.__class__

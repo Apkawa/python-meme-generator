@@ -2,11 +2,12 @@ import cairo
 from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
 
-from meme_generator.common import Font, Rect
+from meme_generator.common import Rect, Size
+from meme_generator.text import Font
 from meme_generator.constants import Align
 
 
-def get_text_bound(text: str, width=None, height=None, font: Font = Font()) -> Rect:
+def get_text_bound(text: str, width=None, height=None, font: Font = Font()) -> Size:
     surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1000, 1000)
     ctx = cairo.Context(surf)
     layout = pangocairo.create_layout(ctx)
@@ -18,11 +19,12 @@ def get_text_bound(text: str, width=None, height=None, font: Font = Font()) -> R
     if height:
         layout.set_height(width * pango.SCALE)
     size = layout.get_pixel_size()
-    return Rect(w=size.width, h=size.height)
+    return Size(w=size.width, h=size.height)
 
 
-def calculate_align(rect: Rect, box: Rect, align: Align) -> Rect:
-    new_rect = Rect(w=box.w, h=box.h)
+def calculate_align(rect: Rect, box: Size, align: Align) -> Rect:
+    new_rect = Rect(x=0, y=0, w=box.w, h=box.h)
+
     if Align.CENTER & align:
         new_rect.x = (rect.w / 2) - (new_rect.w / 2)
         new_rect.y = (rect.h / 2) - (new_rect.h / 2)
