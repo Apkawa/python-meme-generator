@@ -4,6 +4,7 @@ from typing import List
 from PIL import Image
 
 from ..base_meme import BaseMeme
+from ... import common
 from ...common import Rect, Point, Size
 from ...text import Font, Text
 from ...constants import Align, TextAlignment
@@ -46,7 +47,7 @@ class SupermindMeme(BaseMeme):
         r.fill_bg()
         offset_x, offset_y = 0, 0
         for img, text in zip(images, text_minds):
-            r.draw_image(img, Rect(offset_x, offset_y, 0, 0))
+            r.draw_image(common.Image(img), Point(offset_x, offset_y))
 
             text = Text(text,
                         width=img.size[0],
@@ -59,7 +60,10 @@ class SupermindMeme(BaseMeme):
                 box=text.get_bound(),
                 align=Align.CENTER
             )
-            r.draw_text(text, bound=aligned_bound)
+            text.width = aligned_bound.w
+            text.height = aligned_bound.h
+
+            r.draw_text(text, pos=aligned_bound.point)
             offset_y += img.size[1] + line_width / 2
             r.draw_line([Point(0, offset_y), Point(total_w, offset_y)], line_width=line_width)
             offset_y += line_width / 2

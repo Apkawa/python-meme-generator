@@ -2,6 +2,7 @@ from io import BytesIO
 
 from PIL import ImageDraw, Image
 
+from meme_generator import common
 from meme_generator.common import Rect, Color, Point
 from meme_generator.text import Font, Text
 from meme_generator.render import Render
@@ -13,7 +14,7 @@ def test_draw_text(image_regression):
 
     r.draw_text(
         Text(u"T̴͍͔̹͈̰̘͇͉̔̍͛̀̃͝e̸̡̛̦͖̫̙̜̱̱͚̤̥̽͐̋̏̀͌̈́͂͐̊̔͋͘͠s̶̡̨̛̮͍̯̪͚̹̖͕̦͖̫̳̐̓̋̿̔̒̒͐̑̂̚͝͝͝ţ̶̝̯̪͍̹̫̔͂̌͊̉̓̔͋̔̏̊̽́͜ͅ 😂", font=Font(size=24)),
-        bound=Rect(30, 100, 0, 0))
+        pos=Point(30, 100))
 
 
     image_regression(r.save_to_stream())
@@ -27,10 +28,10 @@ def test_draw_long_text_wrap(image_regression):
                 "😀😁😂😃😄😅😆😇😈😉😊😋😌😍😡😴"
                 "😀😁😂😃😄😅😆😇😈😉😊😋😌😍😡😴"
                 "😀😁😂😃😄😅😆😇😈😉😊😋😌😍😡😴"
-                "�̷̧̫̭̫̀̀̀�̸̡̡̡̢̮͓̹̗̟͈̖͙̙̀̓̉̓́͗̋̔̓̂̇͜͠�̵̣͉͔̰͙̭͋͐͒͐͗͆́ͅ�̸̡̛̺̼̞̤̈́̀̽̀̀͛͒̈̎͊̈́͌͘̚ ̵̨͈͓̲̗̳̹͋̈͑̋́͝n̶̯̖͚̬̦͇̲͕͚̪͉͖̘̖̝̍́y̵̧̙̯̘̯͙̣͔̠̬̟͎̬̔͑̋͑̉͗̕ǎ̵̪̙̤̳̳͍̼̹͓̼̿͒̏̄̿͑̿͋̉͜", font=Font(size=11)
+                "�̷̧̫̭̫̀̀̀�̸̡̡̡̢̮͓̹̗̟͈̖͙̙̀̓̉̓́͗̋̔̓̂̇͜͠�̵̣͉͔̰͙̭͋͐͒͐͗͆́ͅ�̸̡̛̺̼̞̤̈́̀̽̀̀͛͒̈̎͊̈́͌͘̚ ̵̨͈͓̲̗̳̹͋̈͑̋́͝n̶̯̖͚̬̦͇̲͕͚̪͉͖̘̖̝̍́y̵̧̙̯̘̯͙̣͔̠̬̟͎̬̔͑̋͑̉͗̕ǎ̵̪̙̤̳̳͍̼̹͓̼̿͒̏̄̿͑̿͋̉͜", font=Font(size=11), width=300
 
     )
-    r.draw_text(text, bound=Rect(10, 0, w=300, h=0))
+    r.draw_text(text, pos=Point(10, 0))
 
     image_regression(r.save_to_stream())
 
@@ -57,7 +58,7 @@ def test_draw_image(image_regression):
     r = Render(300, 100)
     r.fill_bg()
 
-    r.draw_image(make_test_image("Nya"))
+    r.draw_image(common.Image(make_test_image("Nya")))
 
     fp = BytesIO()
     r.save(fp)

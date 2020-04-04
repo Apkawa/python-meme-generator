@@ -1,4 +1,4 @@
-from meme_generator.common import Rect
+from meme_generator.common import Rect, Point
 from meme_generator.text import Font, Text
 from meme_generator.constants import TextStyle
 from meme_generator.render import Render
@@ -14,6 +14,6 @@ def test_text_style(image_regression):
         text = Text(f"{style}: test 🌚 🍆", font=font)
         r.draw_text(
             text,
-            bound=Rect(20, (30 * i) + 30, 0, 0))
+            pos=Point(20, (30 * i) + 30))
 
     image_regression(r.save_to_stream())

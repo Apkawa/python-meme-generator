@@ -36,7 +36,7 @@ def test_draw_multiple_texts(image_regression):
 
         r.draw_text(
             text,
-            bound=align_text_bound)
+            pos=align_text_bound.point)
 
     image_regression(r.save_to_stream())
 
@@ -60,6 +60,6 @@ def test_draw_align_multiline_text(align, image_regression):
 
     r.draw_text(
         text,
-        bound=align_text_bound)
+        pos=align_text_bound.point)
 
     image_regression(r.save_to_stream())
