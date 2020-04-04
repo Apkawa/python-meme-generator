@@ -17,6 +17,8 @@ from meme_generator.text import Text
 class DrawText(BaseDraw):
     obj: Text
 
+    fit_text: bool = True
+
     def __post_init__(self):
         if isinstance(self.pos, Container):
             self.obj.width = self.obj.width or self.pos.w
@@ -39,7 +41,7 @@ class DrawText(BaseDraw):
         layout.set_font_description(text.font.font_desc)
 
         if box.w:
-            text_width = box.w
+            text_width = box.w + text.font.size
             if pos.x + text_width > render.width:
                 text_width = text_width - ((pos.x + text_width) - render.width)
             layout.set_width(text_width * pango.SCALE)
