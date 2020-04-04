@@ -1,8 +1,11 @@
+from dataclasses import asdict
+from typing import Union, List, Tuple
+
 import cairo
 from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
 
-from meme_generator.common import Rect, Size
+from meme_generator.common import Rect, Size, Point
 from meme_generator.text import Font
 from meme_generator.constants import Align
 
@@ -44,3 +47,24 @@ def calculate_align(rect: Rect, box: Size, align: Align) -> Rect:
     return new_rect
 
 
+def find_max_bound(pos_list: List[Union[Point, Rect]]) -> Tuple[Point, Point]:
+    p1, p2 = None, None
+    for pos in pos_list:
+        _p = [pos]
+        if isinstance(pos, Rect):
+            _p = pos.points
+        for p in _p:
+            if p1 is None:
+                p1 = Point(**asdict(p))
+                p2 = Point(**asdict(p))
+                continue
+            if p.x < p1.x:
+                p1.x = p.x
+            if p.y < p1.y:
+                p1.y = p.y
+
+            if p.x > p2.x:
+                p2.x = p.x
+            if p.y > p2.y:
+                p2.y = p.y
+    return p1, p2

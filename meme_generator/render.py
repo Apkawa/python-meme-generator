@@ -51,7 +51,7 @@ class Render:
 
     def draw_line(self, points: List[Point], color: Color = Color.from_str('#000'), line_width=0.5):
         from meme_generator.draw.line import DrawLine
-        self.draw(DrawLine(Line(width=line_width, color=color), pos=None, points=points))
+        self.draw(DrawLine(Line(width=line_width, color=color), pos=points[0], points=points[1:]))
 
     def save(self, fp: Union[BinaryIO, str]):
         self.surf.write_to_png(fp)
