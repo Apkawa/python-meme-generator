@@ -1,9 +1,11 @@
 from dataclasses import asdict
-from typing import Union, List, Tuple
+from typing import Union, List, Tuple, Optional
 
 import cairo
 from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
+
+import PIL.Image
 
 from meme_generator.common import Rect, Size, Point
 from meme_generator.text import Font
@@ -68,3 +70,21 @@ def find_max_bound(pos_list: List[Union[Point, Rect]]) -> Tuple[Point, Point]:
             if p.y > p2.y:
                 p2.y = p.y
     return p1, p2
+
+
+def resize_image(im: PIL.Image.Image,
+                 width: Optional[int] = None,
+                 height: Optional[int] = None
+                 ) -> PIL.Image.Image:
+    a_ratio = []
+    if width:
+        a_ratio.append(width / im.size[0])
+    if height:
+        a_ratio.append(height / im.size[1])
+    aspect_ratio = min(a_ratio)
+    result_size = list([width, height])
+    if width:
+        result_size[1] = im.size[1] * aspect_ratio
+    if height:
+        result_size[0] = im.size[0] * aspect_ratio
+    return im.resize(map(int, result_size), resample=PIL.Image.ANTIALIAS)

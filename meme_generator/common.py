@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict, replace
 from io import BytesIO
 from typing import Optional, Tuple, Union
 
@@ -39,6 +39,18 @@ class Rect:
     @property
     def size(self) -> Size:
         return Size(self.w, self.h)
+
+    def reduce_size(self, size: Union[int, Size]):
+        if isinstance(size, int):
+            size = Size(w=size * 2, h=size * 2)
+
+        return replace(
+            self,
+            x=self.x + size.w / 2,
+            y=self.y + size.h / 2,
+            w=self.w - size.w / 2,
+            h=self.h - size.h / 2,
+        )
 
 
 @dataclass
@@ -98,6 +110,7 @@ class Image:
     _image: Optional[PIL.Image.Image] = field(init=False, default=None)
 
     def get_image(self) -> PIL.Image.Image:
+        from meme_generator.helpers import resize_image
         if self._image:
             return self._image
 
@@ -108,7 +121,7 @@ class Image:
         size = self.size
         if size:
             _w, _h = im.size
-            im.thumbnail([size.w or _w, size.h or _h], PIL.Image.ANTIALIAS)
+            im = resize_image(im, width=size.w, height=size.h)
         self._image = im
         return im
 

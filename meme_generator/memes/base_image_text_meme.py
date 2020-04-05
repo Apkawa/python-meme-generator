@@ -13,9 +13,10 @@ from meme_generator.text import Font, Text
 class BaseImageTextMeme(BaseMeme):
     name = None
     line = Line(width=5)
-    resize: Size = Size(200, 200)
+    image_width: int = 400
     font: Font = Font(size=14)
     text_position: Align.LEFT or Align.RIGHT = Align.RIGHT
+    text_margin: int = 5
 
     def get_image_root(self):
         import inspect
@@ -28,7 +29,7 @@ class BaseImageTextMeme(BaseMeme):
             f = os.path.join(root, name)
             if not os.path.isfile(f):
                 continue
-            yield Image(f, size=self.resize)
+            yield Image(f, size=Size(self.image_width, 0))
 
     def get_texts(self, texts: List[str]) -> List[Text]:
         for text in texts:
@@ -39,7 +40,7 @@ class BaseImageTextMeme(BaseMeme):
 
     def get_drawers(self, texts: List[str]):
         offset_x, offset_y = 0, 0
-        total_w = self.resize.w * 2
+        total_w = self.image_width * 2
 
         prev_line = None
         texts = self.get_texts(texts)
@@ -48,10 +49,13 @@ class BaseImageTextMeme(BaseMeme):
             im_box = d_im.get_box()
             yield d_im
             text_container = Container(
-                total_w / 2, offset_y, total_w / 2, im_box.h,
+                x=(total_w / 2),
+                y=offset_y,
+                w=(total_w / 2) - self.text_margin,
+                h=im_box.h - self.text_margin,
                 align=Align.CENTER
             )
-            yield DrawText(text, pos=text_container)
+            yield DrawText(text, pos=text_container, fit_text=True)
             offset_y += im_box.h
             if prev_line:
                 yield prev_line

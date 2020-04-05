@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Union, List
 
@@ -17,7 +17,7 @@ from meme_generator.text import Text
 class DrawText(BaseDraw):
     obj: Text
 
-    fit_text: bool = True
+    fit_text: bool = False
 
     def __post_init__(self):
         if isinstance(self.pos, Container):
@@ -29,26 +29,42 @@ class DrawText(BaseDraw):
 
     def render(self, render: Render):
         text = self.obj
-        pos = self.get_pos()
-        box = self.get_box()
         ctx = render.ctx
 
-        ctx.move_to(pos.x, pos.y)
         layout = pangocairo.create_layout(ctx)
 
         ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
 
-        layout.set_font_description(text.font.font_desc)
+        if self.fit_text:
+            # Begin large font
+            text.font = replace(text.font, size=text.width * .07)
 
-        if box.w:
+        pos = self.get_pos()
+        box = self.get_box()
+        while text.font.size > 4:
             text_width = box.w + text.font.size
-            if pos.x + text_width > render.width:
-                text_width = text_width - ((pos.x + text_width) - render.width)
+            if text.width and text_width > text.width:
+                text_width = text_width - (text_width - text.width)
             layout.set_width(text_width * pango.SCALE)
             layout.set_wrap(pango.WrapMode.WORD)
-        if box.h:
-            layout.set_height(box.h * pango.SCALE)
 
+            text_height = box.h
+            if text.height and text_height > text.height:
+                text_height = text_height - (text_height - text.height)
+            layout.set_height(text_height * pango.SCALE)
+
+            if not self.fit_text:
+                break
+
+            if box.h > text.height or box.w > text.width:
+                text.font = replace(text.font, size=text.font.size - 1)
+                pos = self.get_pos()
+                box = self.get_box()
+            else:
+                break
+
+        layout.set_font_description(text.font.font_desc)
+        ctx.move_to(pos.x, pos.y)
         if text.alignment:
             layout.set_alignment(text.alignment.value)
 
