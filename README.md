@@ -18,3 +18,8 @@ sudo apt install \
     gir1.2-gtk-3.0
 ```
 
+
+## Useful docs 
+
+* https://lazka.github.io/pgi-docs/PangoCairo-1.0/functions.html
+* https://valadoc.org/pango/index.htm

@@ -12,20 +12,26 @@ class Font:
     name: str = "Sans"
     size: int = 12
 
-    style: TextStyle = TextStyle.NORMAL
+    style: Optional[TextStyle] = None
 
     @property
     def font_desc(self):
         # https://lazka.github.io/pgi-docs/Pango-1.0/classes/FontDescription.html#Pango.FontDescription
         font = pango.FontDescription.from_string(f'{self.name} {self.size}')
-        font.set_style(self.style.value)
+        if self.style:
+            style = (TextStyle.ITALIC | TextStyle.OBLIQUE) & self.style
+            if style:
+                font.set_style(getattr(pango.Style, style.name))
+            variant = TextStyle.SMALL_CAPS & self.style
+            if variant:
+                font.set_variant(pango.Variant.SMALL_CAPS)
         # https://valadoc.org/pango/Pango.html
         return font
 
 
 @dataclass
 class Text:
-    text: str
+    _text: str
     width: str or None = None
     height: str or None = None
     font: Font = Font()
@@ -35,6 +41,16 @@ class Text:
 
     # shadow: Optional[Shadow] = None
     border: Optional[Line] = None
+
+    @property
+    def text(self) -> str:
+        if self.font.style and TextStyle.UPPER_CAPS & self.font.style:
+            return self._text.upper()
+        return self._text
+
+    @text.setter
+    def text(self, v: str) -> None:
+        self._text = v
 
     def get_bound(self) -> Size:
         from .helpers import get_text_bound

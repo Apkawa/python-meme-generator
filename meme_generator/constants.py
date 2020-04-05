@@ -1,4 +1,4 @@
-from enum import Enum, Flag, auto
+from enum import Enum, Flag, auto, unique
 
 from gi.repository import Pango as pango
 
@@ -9,10 +9,16 @@ class TextAlignment(Enum):
     RIGHT = pango.Alignment.RIGHT
 
 
+@unique
 class TextStyle(Flag):
-    NORMAL = pango.Style.NORMAL
-    ITALIC = pango.Style.ITALIC
-    OBLIQUE = pango.Style.OBLIQUE
+    ITALIC = auto()
+    OBLIQUE = auto()
+    # Variant
+    SMALL_CAPS = auto()
+
+    # Logic
+    UPPER_CAPS = auto()
+
 
 
 class Align(Flag):

@@ -72,8 +72,9 @@ class DrawText(BaseDraw):
         layout.set_font_description(text.font.font_desc)
         layout.set_text(text.text)
 
-        sub_surf_size = Size(box.w * 4, box.h * 4)
-        sub_offset = Size(int(sub_surf_size.w / 4), int(sub_surf_size.h / 4))
+        sub_surf_size = Size(box.w + 40, box.h + 150)
+        sub_offset = Size(int(20), int(sub_surf_size.h / 4))
+
         if text.border:
             b_width = text.border.width
             surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
