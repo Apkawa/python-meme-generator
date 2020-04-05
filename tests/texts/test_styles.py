@@ -24,12 +24,13 @@ def test_text_border(image_regression):
     r.fill_bg()
     font = Font("Impact", size=25)
 
-    text = Text(f"TEST Гори все огнем",
+    text = Text(f"TEST з̴̢̺̤̦̬̩̱̺̭̠͚̀̒͛̈̏͌̂̔̎̑́̇͜͝͝а̶̢̟̦̝͎̖̘̯̦͚͚͉̖̒̊̄̅͌̈́̈ͅл̷̢̧̨͉̩͉͚̭͎̗̤̤̓̉̀̔̈́̓г̵̨̙̯̖͖̠͈̙͇̼̟̮̦̍о̷̻̖̮͉̜̰̲̪̅͋̃̃͒͜",
                 font=font,
-                border=Line(width=3, color=Color.from_str("#F00"))
+                color=Color.from_str("#FFF"),
+                border=Line(width=1, color=Color.from_str("#F00"))
                 )
     r.draw_text(
         text,
-        pos=Point(20, 20))
+        pos=Point(20, 50))
 
     image_regression(r.save_to_stream())

@@ -79,15 +79,16 @@ class DrawText(BaseDraw):
             surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
             b_ctx = cairo.Context(surf)
             b_ctx.move_to(sub_offset.w, sub_offset.h)
-            b_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+            # b_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
             b_ctx.set_source_rgb(*text.border.color.rgb)
             pangocairo.update_layout(b_ctx, layout)
-            pangocairo.show_layout(b_ctx, layout)
-
+            pangocairo.layout_path(b_ctx, layout)
+            b_ctx.set_line_width(b_width)
+            b_ctx.stroke()
             ctx.set_source_surface(
                 surf,
-                (pos.x - sub_offset.w) - b_width,
-                (pos.y - sub_offset.h) - b_width
+                (pos.x - sub_offset.w),
+                (pos.y - sub_offset.h)
             )
             ctx.paint()
 
