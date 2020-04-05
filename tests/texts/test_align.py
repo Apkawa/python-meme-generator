@@ -54,7 +54,10 @@ def test_draw_align_multiline_text(align, image_regression):
     font = Font(size=16)
 
     text = Text("Мир: сгорает в огне инфекции\n"
-            "Экономика: кончается в муках", font=font, width=400)
+            "Экономика: кончается в муках",
+                font=font,
+                width=400,
+                )
     text_bound = text.get_bound()
     align_text_bound = calculate_align(text_container, text_bound, align=align)
 

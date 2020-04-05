@@ -1,7 +1,10 @@
+import copy
 from dataclasses import dataclass, replace
 from functools import lru_cache
+from io import BytesIO
 from typing import Union, List
 
+import PIL.Image
 import cairo
 
 from gi.repository import Pango as pango
@@ -33,8 +36,6 @@ class DrawText(BaseDraw):
 
         layout = pangocairo.create_layout(ctx)
 
-        ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
-
         if self.fit_text:
             # Begin large font
             text.font = replace(text.font, size=text.width * .07)
@@ -63,12 +64,42 @@ class DrawText(BaseDraw):
             else:
                 break
 
-        layout.set_font_description(text.font.font_desc)
-        ctx.move_to(pos.x, pos.y)
         if text.alignment:
             layout.set_alignment(text.alignment.value)
 
+        ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+        ctx.move_to(pos.x, pos.y)
+        layout.set_font_description(text.font.font_desc)
         layout.set_text(text.text)
-        ctx.set_source_rgb(*text.color.rgb)
-        pangocairo.update_layout(ctx, layout)
-        pangocairo.show_layout(ctx, layout)
+
+        sub_surf_size = Size(box.w * 4, box.h * 4)
+        sub_offset = Size(int(sub_surf_size.w / 4), int(sub_surf_size.h / 4))
+        if text.border:
+            b_width = text.border.width
+            surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
+            b_ctx = cairo.Context(surf)
+            b_ctx.move_to(sub_offset.w, sub_offset.h)
+            b_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+            b_ctx.set_source_rgb(*text.border.color.rgb)
+            pangocairo.update_layout(b_ctx, layout)
+            pangocairo.show_layout(b_ctx, layout)
+
+            ctx.set_source_surface(
+                surf,
+                (pos.x - sub_offset.w) - b_width,
+                (pos.y - sub_offset.h) - b_width
+            )
+            ctx.paint()
+
+        text_surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
+        t_ctx = cairo.Context(text_surf)
+        t_ctx.move_to(sub_offset.w, sub_offset.h)
+        t_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+        t_ctx.set_source_rgb(*text.color.rgb)
+        pangocairo.update_layout(t_ctx, layout)
+        pangocairo.show_layout(t_ctx, layout)
+        ctx.set_source_surface(text_surf,
+                               pos.x - sub_offset.w,
+                               pos.y - sub_offset.h,
+                               )
+        ctx.paint()

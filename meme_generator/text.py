@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from gi.repository import Pango as pango
 
-from meme_generator.common import Size, Color
+from meme_generator.common import Size, Color, Line
 from meme_generator.constants import TextStyle, TextAlignment
 
 
@@ -31,6 +32,9 @@ class Text:
 
     alignment: TextAlignment = TextAlignment.LEFT
     color: Color = Color.from_str("#000")
+
+    # shadow: Optional[Shadow] = None
+    border: Optional[Line] = None
 
     def get_bound(self) -> Size:
         from .helpers import get_text_bound
