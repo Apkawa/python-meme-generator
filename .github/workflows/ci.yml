@@ -60,7 +60,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: image_diff
-          path: .tests/image_diff/
+          path: tests/.tests/image_diff/
           retention-days: 5
 
       - uses: codecov/codecov-action@v1

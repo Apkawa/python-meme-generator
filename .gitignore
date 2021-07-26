@@ -1,6 +1,7 @@
 venv
 .idea
 .tests
+tests/.tests
 .vagrant
 *.retry
 .vault
