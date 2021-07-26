@@ -1,8 +1,10 @@
 -e .
 
+git+https://github.com/Apkawa/pytest-image-diff#egg=pytest-image-diff
+tox==3.14.6
+
 pytest==5.4.1
 pytest-mypy==0.6.0
 pytest-cov
 pytest-benchmark
-git+https://github.com/Apkawa/pytest-image-diff#egg=pytest-image-diff
-tox==3.14.6
+pytest-flake8

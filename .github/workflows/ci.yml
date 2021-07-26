@@ -45,7 +45,8 @@ jobs:
             pkg-config \
             python3-dev \
             gir1.2-gtk-3.0 \
-            gcc
+            gcc \
+            fontconfig
 
       - name: Install dependencies
         run: |
