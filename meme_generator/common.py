@@ -23,10 +23,10 @@ class Point:
 
 @dataclass
 class Rect:
-    x: CoordType
-    y: CoordType
-    w: CoordType
-    h: CoordType
+    x: int
+    y: int
+    w: int
+    h: int
 
     @property
     def point(self) -> Point:
@@ -40,16 +40,16 @@ class Rect:
     def size(self) -> Size:
         return Size(self.w, self.h)
 
-    def reduce_size(self, size: Union[int, Size]):
-        if isinstance(size, int):
-            size = Size(w=size * 2, h=size * 2)
+    def reduce_size(self, size: Union[CoordType, Size]) -> 'Rect':
+        if not isinstance(size, Size):
+            size = Size(w=round(size * 2), h=round(size * 2))
 
         return replace(
             self,
-            x=self.x + size.w / 2,
-            y=self.y + size.h / 2,
-            w=self.w - size.w / 2,
-            h=self.h - size.h / 2,
+            x=round(self.x + size.w / 2),
+            y=round(self.y + size.h / 2),
+            w=round(self.w - size.w / 2),
+            h=round(self.h - size.h / 2),
         )
 
 
@@ -68,7 +68,20 @@ class Container(Rect):
         return Rect(**kw)
 
 
-def value_to_double(value):
+def value_to_double(value: int) -> float:
+    """
+    Convert 0-255 to 0-1.0
+
+    >>> value_to_double(255)
+    1.0
+    >>> value_to_double(0)
+    0.0
+    >>> value_to_double(128)
+    0.5019607843137255
+
+    :param value:
+    :return:
+    """
     return value / 0xff
 
 
@@ -80,17 +93,22 @@ class Color:
     alpha: int = 0
 
     @classmethod
-    def from_str(self, color: str):
+    def from_str(self, color: str) -> "Color":
         # TODO rgba
         rgb = hex_to_rgb(color)
         return Color(*rgb)
 
     @property
-    def rgba(self):
-        return list(map(value_to_double, [self.red, self.green, self.blue, self.alpha]))
+    def rgba(self) -> Tuple[float, float, float, float]:
+        return (
+            value_to_double(self.red),
+            value_to_double(self.green),
+            value_to_double(self.blue),
+            value_to_double(self.alpha)
+        )
 
     @property
-    def rgb(self):
+    def rgb(self) -> Tuple[float, float, float]:
         return self.rgba[:3]
 
 

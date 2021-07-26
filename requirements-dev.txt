@@ -7,5 +7,5 @@ pytest-cov
 pytest-benchmark
 pytest-image-diff==0.0.3
 
-mypy
+# qa
 flake8

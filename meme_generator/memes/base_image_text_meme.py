@@ -31,7 +31,7 @@ class BaseImageTextMeme(BaseMeme):
                 continue
             yield Image(f, size=Size(self.image_width, 0))
 
-    def get_texts(self, texts: List[str]) -> List[Text]:
+    def get_texts(self, texts: List[str]):
         for text in texts:
             yield Text(text,
                        font=self.font,

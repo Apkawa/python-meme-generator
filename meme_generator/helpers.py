@@ -1,18 +1,21 @@
 from dataclasses import asdict
 from typing import Union, List, Tuple, Optional
 
+import PIL.Image
 import cairo
 from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
 
-import PIL.Image
-
 from meme_generator.common import Rect, Size, Point
-from meme_generator.text import Font
 from meme_generator.constants import Align
+from meme_generator.text import Font
 
 
-def get_text_bound(text: str, width=None, height=None, font: Font = Font()) -> Size:
+def get_text_bound(text: str,
+                   width: Optional[int] = None,
+                   height: Optional[int] = None,
+                   font: Font = Font()
+                   ) -> Size:
     surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1000, 1000)
     ctx = cairo.Context(surf)
     layout = pangocairo.create_layout(ctx)

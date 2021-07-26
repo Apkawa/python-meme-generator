@@ -32,8 +32,8 @@ class Font:
 @dataclass
 class Text:
     _text: str
-    width: str or None = None
-    height: str or None = None
+    width: Optional[str] = None
+    height: Optional[str] = None
     font: Font = Font()
 
     alignment: TextAlignment = TextAlignment.LEFT

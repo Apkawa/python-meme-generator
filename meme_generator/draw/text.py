@@ -32,7 +32,7 @@ class DrawText(BaseDraw):
 
         if self.fit_text:
             # Begin large font
-            text.font = replace(text.font, size=text.width * .07)
+            text.font = replace(text.font, size=round(text.width * .07))
 
         pos = self.get_pos()
         box = self.get_box()
