@@ -1,5 +1,7 @@
 # Meme generator
 
+[![ci](https://github.com/Apkawa/python-meme-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/Apkawa/python-meme-generator/actions/workflows/ci.yml)
+
 Framework for generate memes using pycairo.
 
 Builtin meme generators:
@@ -15,6 +17,7 @@ Pooh
 Borgar
 
 ![borgar meme](tests/image_diff_reference/meme_generator.memes.borgar.tests/test_borgar--reference.png)
+
 ## Requirements
 
 * python-3.7

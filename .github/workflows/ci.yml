@@ -20,7 +20,7 @@ jobs:
             experimental: false
           - toxenv: type
             python-version: 3.7
-            experimental: false
+            experimental: true
           - experimental: true
             python-version: "3.10.0-beta.2 - 3.10"
           - experimental: true

@@ -9,3 +9,8 @@ pytest-image-diff==0.0.3
 
 # qa
 flake8
+pre-commit==2.13.0
+
+# typing
+types-six
+mypy>=0.901
