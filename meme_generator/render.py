@@ -1,25 +1,50 @@
 # -*- coding: utf-8 -*-
 import os
+import tempfile
 from io import BytesIO
 from typing import Union, BinaryIO, List
 
 import cairo
 
-from meme_generator.common import Color, Rect, Point, Line, Image
+from meme_generator.common import Color, Point, Line, Image
 from . import fontconfig as fc
+
 from .text import Text
-from .types import ImageType
 
 FONTS_ROOT = os.path.join(os.path.dirname(__file__), 'fonts')
 
 
 def load_fonts():
     conf = fc.Config.get_current()
+    xml = '''
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+        <match target="pattern">
+            <test name="family" qual="first" compare="contains">
+                <string>emoji</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                    <string>Apple Color Emoji</string>
+            </edit>
+        </match> 
+</fontconfig>
+        '''
+    # TODO cleanup
+    fd, conf_filename = tempfile.mkstemp()
+    os.write(fd, xml.encode('utf-8'))
+    os.close(fd)
+    conf.parse_and_load(conf_filename, True)
+
+    conf.set_current()
+
+    font_path = []
     for name in os.listdir(FONTS_ROOT):
         path = os.path.join(FONTS_ROOT, name)
         if not os.path.isfile(path):
             continue
+        font_path.append(path)
 
+    for path in font_path:
         conf.app_font_add_file(path)
 
 
