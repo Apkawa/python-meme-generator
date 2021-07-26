@@ -21,9 +21,6 @@ jobs:
           - toxenv: type
             python-version: 3.7
             experimental: false
-          - toxenv: py37-openpyxl24
-            experimental: false
-            python-version: 3.7
           - experimental: true
             python-version: "3.10.0-beta.2 - 3.10"
           - experimental: true
@@ -56,6 +53,15 @@ jobs:
           pip install tox python-coveralls codecov
       - name: Run tests
         run: tox
+
+      - name: 'Save image regression report'
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: image_diff
+          path: .tests/image_diff/
+          retention-days: 5
+
       - uses: codecov/codecov-action@v1
         with:
           env_vars: OS,PYTHON,TOXENV
