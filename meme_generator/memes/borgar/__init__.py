@@ -4,7 +4,6 @@ from typing import List, Iterator
 from meme_generator.common import Size, Point, Image, Container, Line, Color
 from meme_generator.constants import TextAlignment, Align, TextStyle
 from meme_generator.draw.image import DrawImage
-from meme_generator.draw.line import DrawLine
 from meme_generator.draw.text import DrawText
 from meme_generator.memes.base_meme import BaseMeme
 from meme_generator.text import Font, Text
@@ -41,7 +40,7 @@ class BorgarMeme(BaseMeme):
                        )
 
     def get_drawers(self, texts: List[str]):
-        offset_x, offset_y = 0, 0
+        offset_y = 0
         total_w = self.image_width
         texts = self.get_texts(texts)
 

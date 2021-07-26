@@ -20,7 +20,6 @@ class TextStyle(Flag):
     UPPER_CAPS = auto()
 
 
-
 class Align(Flag):
     LEFT = auto()
     RIGHT = auto()

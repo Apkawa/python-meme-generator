@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from functools import reduce
 from typing import List
 
-from meme_generator.common import Point, Line, Size, Rect
+from meme_generator.common import Point, Line, Size
 from meme_generator.draw.base import BaseDraw
 from meme_generator.helpers import find_max_bound
 from meme_generator.render import Render

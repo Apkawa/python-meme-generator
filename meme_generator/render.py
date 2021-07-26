@@ -8,7 +8,6 @@ import cairo
 
 from meme_generator.common import Color, Point, Line, Image
 from . import fontconfig as fc
-
 from .text import Text
 
 FONTS_ROOT = os.path.join(os.path.dirname(__file__), 'fonts')
@@ -26,7 +25,7 @@ def load_fonts():
             <edit name="family" mode="prepend" binding="strong">
                     <string>Apple Color Emoji</string>
             </edit>
-        </match> 
+        </match>
 </fontconfig>
         '''
     # TODO cleanup
@@ -63,7 +62,7 @@ class Render:
         self.ctx.set_source_rgb(*color.rgb)
         self.ctx.fill()
 
-    def draw(self, obj: "meme_generator.draw.base.AbstractDraw"):
+    def draw(self, obj: "meme_generator.draw.base.BaseDraw"):
         obj.render(self)
 
     def draw_text(self, text: Text, pos: Point):
@@ -74,7 +73,10 @@ class Render:
         from meme_generator.draw.image import DrawImage
         self.draw(DrawImage(image, pos))
 
-    def draw_line(self, points: List[Point], color: Color = Color.from_str('#000'), line_width=0.5):
+    def draw_line(self,
+                  points: List[Point],
+                  color: Color = Color.from_str('#000'),
+                  line_width=0.5):
         from meme_generator.draw.line import DrawLine
         self.draw(DrawLine(Line(width=line_width, color=color), pos=points[0], points=points[1:]))
 

@@ -1,10 +1,8 @@
 from dataclasses import dataclass
-from io import BytesIO
 
-import PIL.Image
 import cairo
 
-from meme_generator.common import Point, Image, Size
+from meme_generator.common import Image, Size
 from meme_generator.draw.base import BaseDraw
 from meme_generator.render import Render
 

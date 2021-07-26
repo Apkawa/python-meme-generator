@@ -1,16 +1,10 @@
-import copy
 from dataclasses import dataclass, replace
-from functools import lru_cache
-from io import BytesIO
-from typing import Union, List
 
-import PIL.Image
 import cairo
-
 from gi.repository import Pango as pango
 from gi.repository import PangoCairo as pangocairo
 
-from meme_generator.common import Point, Size, Container
+from meme_generator.common import Size, Container
 from meme_generator.draw.base import BaseDraw
 from meme_generator.render import Render
 from meme_generator.text import Text

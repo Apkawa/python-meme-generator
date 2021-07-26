@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-from typing import Optional, Union, Any
+from typing import Union, Any
 
 from meme_generator.common import Container, Point, Size, Rect
 from meme_generator.render import Render

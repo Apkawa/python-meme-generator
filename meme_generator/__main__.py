@@ -13,7 +13,6 @@ def cli(ctx, output):
     ctx.obj['output'] = output
 
 
-
 @cli.command()
 @click.pass_context
 @click.argument("texts", nargs=-1)
@@ -24,4 +23,3 @@ def supermind(ctx, texts):
 
 
 cli()
-
