@@ -40,7 +40,7 @@ class Rect:
     def size(self) -> Size:
         return Size(self.w, self.h)
 
-    def reduce_size(self, size: Union[CoordType, Size]) -> 'Rect':
+    def reduce_size(self, size: Union[CoordType, Size]) -> "Rect":
         if not isinstance(size, Size):
             size = Size(w=round(size * 2), h=round(size * 2))
 
@@ -59,12 +59,13 @@ class Container(Rect):
 
     def align_box(self, box: Size) -> Rect:
         from .helpers import calculate_align
+
         return calculate_align(self, box, self.align)
 
     @property
     def rect(self) -> Rect:
         kw = asdict(self)
-        kw.pop('align', None)
+        kw.pop("align", None)
         return Rect(**kw)
 
 
@@ -82,7 +83,7 @@ def value_to_double(value: int) -> float:
     :param value:
     :return:
     """
-    return value / 0xff
+    return value / 0xFF
 
 
 @dataclass
@@ -104,7 +105,7 @@ class Color:
             value_to_double(self.red),
             value_to_double(self.green),
             value_to_double(self.blue),
-            value_to_double(self.alpha)
+            value_to_double(self.alpha),
         )
 
     @property
@@ -115,7 +116,7 @@ class Color:
 @dataclass
 class Line:
     color: Color = Color.from_str("#000")
-    width: float = .5
+    width: float = 0.5
     # style
 
 
@@ -129,6 +130,7 @@ class Image:
 
     def get_image(self) -> PIL.Image.Image:
         from meme_generator.helpers import resize_image
+
         if self._image:
             return self._image
 

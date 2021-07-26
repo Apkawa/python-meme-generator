@@ -13,9 +13,16 @@ def test_get_text_bound(image_regression):
     assert bound.h in [17, 16]
 
 
-@pytest.mark.parametrize('kw,expect', [
-    [dict(rect=Rect(0, 0, w=100, h=100), box=Size(w=50, h=50), align=Align.CENTER),
-     Rect(x=25, y=25, w=50, h=50)]
-])
+@pytest.mark.parametrize(
+    "kw,expect",
+    [
+        [
+            dict(
+                rect=Rect(0, 0, w=100, h=100), box=Size(w=50, h=50), align=Align.CENTER
+            ),
+            Rect(x=25, y=25, w=50, h=50),
+        ]
+    ],
+)
 def test_calculate_align(kw, expect):
     assert calculate_align(**kw) == expect

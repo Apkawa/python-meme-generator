@@ -20,8 +20,9 @@ class BaseImageTextMeme(BaseMeme):
 
     def get_image_root(self):
         import inspect
+
         cls_file = inspect.getfile(self.__class__)
-        return os.path.join(os.path.dirname(cls_file), 'img')
+        return os.path.join(os.path.dirname(cls_file), "img")
 
     def get_images(self) -> Iterator[Image]:
         root = self.get_image_root()
@@ -33,10 +34,7 @@ class BaseImageTextMeme(BaseMeme):
 
     def get_texts(self, texts: List[str]):
         for text in texts:
-            yield Text(text,
-                       font=self.font,
-                       alignment=TextAlignment.CENTER
-                       )
+            yield Text(text, font=self.font, alignment=TextAlignment.CENTER)
 
     def get_drawers(self, texts: List[str]):
         offset_x, offset_y = 0, 0
@@ -53,10 +51,12 @@ class BaseImageTextMeme(BaseMeme):
                 y=offset_y,
                 w=(total_w / 2) - self.text_margin,
                 h=im_box.h - self.text_margin,
-                align=Align.CENTER
+                align=Align.CENTER,
             )
             yield DrawText(text, pos=text_container, fit_text=True)
             offset_y += im_box.h
             if prev_line:
                 yield prev_line
-            prev_line = DrawLine(self.line, Point(0, offset_y), [Point(total_w, offset_y)])
+            prev_line = DrawLine(
+                self.line, Point(0, offset_y), [Point(total_w, offset_y)]
+            )

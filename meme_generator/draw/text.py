@@ -32,7 +32,7 @@ class DrawText(BaseDraw):
 
         if self.fit_text:
             # Begin large font
-            text.font = replace(text.font, size=round(text.width * .07))
+            text.font = replace(text.font, size=round(text.width * 0.07))
 
         pos = self.get_pos()
         box = self.get_box()
@@ -71,7 +71,9 @@ class DrawText(BaseDraw):
 
         if text.border:
             b_width = text.border.width
-            surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
+            surf = cairo.ImageSurface(
+                cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h
+            )
             b_ctx = cairo.Context(surf)
             b_ctx.move_to(sub_offset.w, sub_offset.h)
             # b_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
@@ -80,22 +82,17 @@ class DrawText(BaseDraw):
             pangocairo.layout_path(b_ctx, layout)
             b_ctx.set_line_width(b_width)
             b_ctx.stroke()
-            ctx.set_source_surface(
-                surf,
-                (pos.x - sub_offset.w),
-                (pos.y - sub_offset.h)
-            )
+            ctx.set_source_surface(surf, (pos.x - sub_offset.w), (pos.y - sub_offset.h))
             ctx.paint()
 
-        text_surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h)
+        text_surf = cairo.ImageSurface(
+            cairo.FORMAT_ARGB32, sub_surf_size.w, sub_surf_size.h
+        )
         t_ctx = cairo.Context(text_surf)
         t_ctx.move_to(sub_offset.w, sub_offset.h)
         t_ctx.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
         t_ctx.set_source_rgb(*text.color.rgb)
         pangocairo.update_layout(t_ctx, layout)
         pangocairo.show_layout(t_ctx, layout)
-        ctx.set_source_surface(text_surf,
-                               pos.x - sub_offset.w,
-                               pos.y - sub_offset.h,
-                               )
+        ctx.set_source_surface(text_surf, pos.x - sub_offset.w, pos.y - sub_offset.h)
         ctx.paint()

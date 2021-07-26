@@ -19,8 +19,9 @@ class BorgarMeme(BaseMeme):
 
     def get_image_root(self):
         import inspect
+
         cls_file = inspect.getfile(self.__class__)
-        return os.path.join(os.path.dirname(cls_file), 'img')
+        return os.path.join(os.path.dirname(cls_file), "img")
 
     def get_images(self) -> Iterator[Image]:
         root = self.get_image_root()
@@ -32,12 +33,13 @@ class BorgarMeme(BaseMeme):
 
     def get_texts(self, texts: List[str]) -> List[Text]:
         for text in texts:
-            yield Text(text,
-                       font=self.font,
-                       alignment=TextAlignment.CENTER,
-                       color=Color.from_str("#FFF"),
-                       border=self.text_border
-                       )
+            yield Text(
+                text,
+                font=self.font,
+                alignment=TextAlignment.CENTER,
+                color=Color.from_str("#FFF"),
+                border=self.text_border,
+            )
 
     def get_drawers(self, texts: List[str]):
         offset_y = 0
@@ -62,7 +64,7 @@ class BorgarMeme(BaseMeme):
                 y=offset_y,
                 w=total_w - self.text_margin,
                 h=im_box.h / 2,
-                align=align
+                align=align,
             )
             yield DrawText(text, pos=text_container, fit_text=True)
             offset_y += im_box.h / 2

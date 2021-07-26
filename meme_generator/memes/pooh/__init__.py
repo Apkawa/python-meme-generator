@@ -6,20 +6,13 @@ from ...text import Font, Text
 
 
 class PoohMeme(BaseImageTextMeme):
-    name = 'pooh'
+    name = "pooh"
 
-    font: List[Font] = [
-        Font(size=14),
-        Font("Marck Script", size=14)
-    ]
+    font: List[Font] = [Font(size=14), Font("Marck Script", size=14)]
 
     def get_texts(self, texts: List[str]) -> Generator[Text, None, None]:
         for i, text in enumerate(texts):
             font = self.font[0]
             if i >= len(texts) - 1:
                 font = self.font[1]
-            yield Text(
-                text,
-                font=font,
-                alignment=TextAlignment.CENTER
-            )
+            yield Text(text, font=font, alignment=TextAlignment.CENTER)

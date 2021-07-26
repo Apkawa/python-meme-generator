@@ -17,7 +17,7 @@ class Font:
     @property
     def font_desc(self):
         # https://lazka.github.io/pgi-docs/Pango-1.0/classes/FontDescription.html#Pango.FontDescription
-        font = pango.FontDescription.from_string(f'{self.name} {self.size}')
+        font = pango.FontDescription.from_string(f"{self.name} {self.size}")
         if self.style:
             style = (TextStyle.ITALIC | TextStyle.OBLIQUE) & self.style
             if style:
@@ -54,9 +54,7 @@ class Text:
 
     def get_bound(self) -> Size:
         from .helpers import get_text_bound
+
         return get_text_bound(
-            self.text,
-            width=self.width,
-            height=self.height,
-            font=self.font
+            self.text, width=self.width, height=self.height, font=self.font
         )

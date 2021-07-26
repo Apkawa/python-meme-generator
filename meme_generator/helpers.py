@@ -11,11 +11,12 @@ from meme_generator.constants import Align
 from meme_generator.text import Font
 
 
-def get_text_bound(text: str,
-                   width: Optional[int] = None,
-                   height: Optional[int] = None,
-                   font: Font = Font()
-                   ) -> Size:
+def get_text_bound(
+    text: str,
+    width: Optional[int] = None,
+    height: Optional[int] = None,
+    font: Font = Font(),
+) -> Size:
     surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1000, 1000)
     ctx = cairo.Context(surf)
     layout = pangocairo.create_layout(ctx)
@@ -75,10 +76,9 @@ def find_max_bound(pos_list: List[Union[Point, Rect]]) -> Tuple[Point, Point]:
     return p1, p2
 
 
-def resize_image(im: PIL.Image.Image,
-                 width: Optional[int] = None,
-                 height: Optional[int] = None
-                 ) -> PIL.Image.Image:
+def resize_image(
+    im: PIL.Image.Image, width: Optional[int] = None, height: Optional[int] = None
+) -> PIL.Image.Image:
     a_ratio = []
     if width:
         a_ratio.append(width / im.size[0])
