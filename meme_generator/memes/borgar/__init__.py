@@ -12,7 +12,7 @@ from meme_generator.text import Font, Text
 
 class BorgarMeme(BaseMeme):
     name = None
-    image_width: int = 600
+    image_width: int = 400
     font: Font = Font("Impact", size=14, style=TextStyle.UPPER_CAPS)
     text_border = Line(width=3, color=Color.from_str("#000"))
     text_position: Align.LEFT or Align.RIGHT = Align.RIGHT
