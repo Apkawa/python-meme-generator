@@ -44,7 +44,6 @@ jobs:
       - name: Install system deps
         run: >-
           sudo apt-get install libgirepository1.0-dev
-            gcc
             libcairo2-dev
             pkg-config
             python3-dev
