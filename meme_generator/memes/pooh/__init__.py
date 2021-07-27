@@ -1,8 +1,8 @@
 from typing import List, Generator
 
 from ..base_image_text_meme import BaseImageTextMeme
-from ...constants import TextAlignment
-from ...text import Font, Text
+from meme_generator.cairo_draw.constants import TextAlignment
+from meme_generator.cairo_draw.text import Font, Text
 
 
 class PoohMeme(BaseImageTextMeme):

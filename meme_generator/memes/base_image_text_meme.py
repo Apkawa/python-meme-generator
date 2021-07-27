@@ -1,13 +1,13 @@
 import os
 from typing import List, Iterator
 
-from meme_generator.common import Size, Point, Image, Container, Line
-from meme_generator.constants import TextAlignment, Align
-from meme_generator.draw.image import DrawImage
-from meme_generator.draw.line import DrawLine
-from meme_generator.draw.text import DrawText
+from meme_generator.cairo_draw.common import Size, Point, Image, Container, Line
+from meme_generator.cairo_draw.constants import TextAlignment, Align
+from meme_generator.cairo_draw.draw.image import DrawImage
+from meme_generator.cairo_draw.draw.line import DrawLine
+from meme_generator.cairo_draw.draw.text import DrawText
 from meme_generator.memes.base_meme import BaseMeme
-from meme_generator.text import Font, Text
+from meme_generator.cairo_draw.text import Font, Text
 
 
 class BaseImageTextMeme(BaseMeme):

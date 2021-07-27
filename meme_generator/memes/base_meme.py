@@ -1,9 +1,9 @@
 from typing import List
 
-from meme_generator.common import Size
-from meme_generator.draw.base import BaseDraw
-from meme_generator.helpers import find_max_bound
-from meme_generator.render import Render
+from meme_generator.cairo_draw.common import Size
+from meme_generator.cairo_draw.draw.base import BaseDraw
+from meme_generator.cairo_draw.helpers import find_max_bound
+from meme_generator.cairo_draw.render import Render
 
 
 class BaseMeme:

@@ -1,10 +1,10 @@
 import pytest
 
-from meme_generator.common import Rect, Point
-from meme_generator.text import Font, Text
-from meme_generator.constants import Align
-from meme_generator.helpers import get_text_bound, calculate_align
-from meme_generator.render import Render
+from meme_generator.cairo_draw.common import Rect, Point
+from meme_generator.cairo_draw.text import Font, Text
+from meme_generator.cairo_draw.constants import Align
+from meme_generator.cairo_draw.helpers import calculate_align
+from meme_generator.cairo_draw.render import Render
 
 ALIGNS = [
     Align.TOP | Align.LEFT,

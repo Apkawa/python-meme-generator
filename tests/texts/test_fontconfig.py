@@ -1,4 +1,4 @@
-from meme_generator import fontconfig as fc
+from meme_generator.cairo_draw import fontconfig as fc
 
 
 def test_get_font_by_name():

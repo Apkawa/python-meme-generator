@@ -2,10 +2,10 @@ from io import BytesIO
 
 from PIL import ImageDraw, Image
 
-from meme_generator import common
-from meme_generator.common import Rect, Color, Point
-from meme_generator.text import Font, Text
-from meme_generator.render import Render
+from meme_generator.cairo_draw import common
+from meme_generator.cairo_draw.common import Color, Point
+from meme_generator.cairo_draw.text import Font, Text
+from meme_generator.cairo_draw.render import Render
 
 
 def test_draw_text(image_regression):

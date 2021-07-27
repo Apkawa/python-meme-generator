@@ -5,6 +5,7 @@ tests/.tests
 .vagrant
 *.retry
 .vault
+.uuid
 
 public/
 # Byte-compiled / optimized / DLL files

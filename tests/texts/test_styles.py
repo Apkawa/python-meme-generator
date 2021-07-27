@@ -1,7 +1,7 @@
-from meme_generator.common import Rect, Point, Line, Color
-from meme_generator.text import Font, Text
-from meme_generator.constants import TextStyle
-from meme_generator.render import Render
+from meme_generator.cairo_draw.common import Point, Line, Color
+from meme_generator.cairo_draw.text import Font, Text
+from meme_generator.cairo_draw.constants import TextStyle
+from meme_generator.cairo_draw.render import Render
 
 
 def test_text_style(image_regression):

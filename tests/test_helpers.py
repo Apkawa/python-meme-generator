@@ -1,9 +1,9 @@
 import pytest
 
-from meme_generator.common import Rect, Size
-from meme_generator.text import Font
-from meme_generator.constants import Align
-from meme_generator.helpers import get_text_bound, calculate_align
+from meme_generator.cairo_draw.common import Rect, Size
+from meme_generator.cairo_draw.text import Font
+from meme_generator.cairo_draw.constants import Align
+from meme_generator.cairo_draw.helpers import get_text_bound, calculate_align
 
 
 def test_get_text_bound(image_regression):
